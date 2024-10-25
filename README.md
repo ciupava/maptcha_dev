@@ -19,7 +19,7 @@ Possible improvements to this set of images:
 - @ciupava decided to use the original tiles as the image format, because of the nature of the available data, i.e. sparse tiles around a city, surrounded by void. Ideally we could like to have an image centered on the feature centroid, and either a buffer or set size of the image around it;
 - both the above points are connected to the idea that we would have a few of images (9?) within the same captcha, and there's the risk that the features are too small to be visible, as they are now.
 
-The data is good in some places, less good in other, because of the way it was generated (see the TN for example) and because sometimes the labels where not so good (leading to false FP haha). We might need to pass through the list.  
+The data is good in some places, less good in other, because of the way it was generated (see the TN for example) and because sometimes the labels are not so good (leading to false FP haha). We might need to pass through the list.  
 We have way more TP than the other categories. In particular, TN are not usable as they are now, but how would we show/use the TN anyways? See more on this in the introduction of `images_processing.ipynb`.
 
 
