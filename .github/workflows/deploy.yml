@@ -21,15 +21,15 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Build project
-        working-directory: maptcha
-        run: npm run build
+        run: |
+          cd maptcha
+          npm run build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
         with:
           name: production-files
-          working-directory: maptcha
-          path: ./dist
+          path: ./maptcha/dist
 
   deploy:
     name: Deploy
@@ -40,14 +40,12 @@ jobs:
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
-        working-directory: maptcha
         with:
           name: production-files
-          path: ./dist
+          path: ./maptcha/dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        working-directory: maptcha
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          publish_dir: ./maptcha/dist
