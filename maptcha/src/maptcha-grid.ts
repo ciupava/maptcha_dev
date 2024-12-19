@@ -1,7 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 
-
 @customElement('maptcha-grid')
 class MaptchaGrid extends LitElement {
   @property({ type: Array })

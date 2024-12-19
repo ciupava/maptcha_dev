@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
+import {getImages} from "./utils"
 
 @customElement('maptcha-testing')
 class MaptchaTesting extends LitElement {
@@ -29,8 +30,22 @@ class MaptchaTesting extends LitElement {
 
     }
   `
+
+  @state()
+  images: Array<String> = []
+  
   @state()
   selectedTab: String = "grid";
+
+  connectedCallback() {
+    super.connectedCallback()
+    console.log('connected')
+    let images = getImages("TP",9);
+
+    this.images = images;
+    console.log(images)
+
+  }
 
   selectGrid(){
     this.selectedTab = "grid"
@@ -51,12 +66,12 @@ class MaptchaTesting extends LitElement {
       <div class='content'>
         ${this.selectedTab === "grid" ? 
           html`
-            <maptcha-grid>
+            <maptcha-grid .images="${this.images}"">
             </maptcha-grid>
           `
           :
           html`
-            <maptcha-swipe>
+            <maptcha-swipe .items="${this.images}">
             </maptcha-swipe>
           `
         }
