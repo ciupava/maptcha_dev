@@ -39,9 +39,10 @@ class MaptchaGrid extends LitElement {
       border: 2px solid transparent;
       cursor: pointer;
       border-radius: 4px;
+      box-sizing:border-box;
     }
     .grid img.selected {
-      border-color: #007BFF;
+      border: 3px solid #491053;
     }
     .submit-btn {
       display: block;

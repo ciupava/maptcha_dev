@@ -117,8 +117,8 @@ export class MaptchaSwipe extends LitElement {
         </div>
         <p>Swipe right if the red outline covers the building</p>
         <div class='buttons'>
-          <button class="disagree">Disagree</button>
-          <button class="agree">Agree</button>
+          <button @click=${this._clickAgree} class="disagree">Disagree</button>
+          <button @click=${this._clickDisagree} class="agree">Agree</button>
         </div>
       </div>
     `;
@@ -158,6 +158,16 @@ export class MaptchaSwipe extends LitElement {
     } else {
       this._resetPosition();
     }
+  }
+
+  private _clickAgree(){
+    this._currentIndex++;
+    this.requestUpdate();
+  }
+
+  private _clickDisagree(){
+    this._currentIndex++;
+    this.requestUpdate();
   }
 
   private _swipe(direction: 'left' | 'right') {
