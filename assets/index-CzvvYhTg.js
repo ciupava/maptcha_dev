@@ -226,7 +226,7 @@
       color:white;
 
     }
-  `;vt([Gt()],R.prototype,"images",2);vt([Gt()],R.prototype,"selectedTab",2);R=vt([K("maptcha-testing")],R);const pn="/assets/maptcha_logo-CUo1xCWg.webp";var on=Object.defineProperty,gn=Object.getOwnPropertyDescriptor,mn=(e,t,n,r)=>{for(var _=r>1?void 0:r?gn(t,n):t,s=e.length-1,i;s>=0;s--)(i=e[s])&&(_=(r?i(t,n,_):i(_))||_);return r&&_&&on(t,n,_),_};let lt=class extends u{render(){return h`
+  `;vt([Gt()],R.prototype,"images",2);vt([Gt()],R.prototype,"selectedTab",2);R=vt([K("maptcha-testing")],R);const pn="/maptcha_dev/assets/maptcha_logo-CUo1xCWg.webp";var on=Object.defineProperty,gn=Object.getOwnPropertyDescriptor,mn=(e,t,n,r)=>{for(var _=r>1?void 0:r?gn(t,n):t,s=e.length-1,i;s>=0;s--)(i=e[s])&&(_=(r?i(t,n,_):i(_))||_);return r&&_&&on(t,n,_),_};let lt=class extends u{render(){return h`
         <header class="header">
           <img src=${pn} />
           <h2>Maptcha</h2>
