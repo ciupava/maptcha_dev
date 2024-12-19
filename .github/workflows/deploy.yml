@@ -18,14 +18,14 @@ jobs:
         uses: actions/setup-node@v3
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          working-directory: maptcha
+        run: |
+          cd maptcha
+          pnpm install
 
       - name: Build project
         run: |
           cd maptcha
-          npm run build
+          pnpm build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
