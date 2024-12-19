@@ -47,6 +47,7 @@ export class MaptchaSwipe extends LitElement {
       user-select: none;
       color:grey;
       transition: transform 0.3s ease-in-out;
+      touch-action:none;
     }
     .card.dragging {
       transition: none;
