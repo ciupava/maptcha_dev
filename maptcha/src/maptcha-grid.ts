@@ -82,6 +82,7 @@ class MaptchaGrid extends LitElement {
       bubbles: true,
       composed: true
     });
+    this.selectedIndexes=[]
     this.dispatchEvent(event);
   }
 
