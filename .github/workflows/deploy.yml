@@ -31,7 +31,7 @@ jobs:
       - name: Build project
         run: |
           cd maptcha
-          pnpm build
+          pnpm build-cd
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
