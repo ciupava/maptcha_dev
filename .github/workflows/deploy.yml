@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    working-dir: maptcha
 
     steps:
       - name: Checkout repo
@@ -21,9 +22,7 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: Build project
-        run: |
-          cd maptcha
-          npm run build
+        run: npm run build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v3
