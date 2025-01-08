@@ -1,5 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import {Image, getUserId, createSubmission} from "./utils"
 
 
 @customElement('maptcha-swipe')
@@ -79,22 +80,14 @@ export class MaptchaSwipe extends LitElement {
   `;
 
   @property({ type: Array })
-  items: string[] = [    
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150'
-  ];
+  items: Image[] = [];
 
   private _currentIndex = 0;
   private _startX = 0;
   private _currentX = 0;
   private _isDragging = false;
+
+
 
   render() {
     return html`
@@ -110,7 +103,7 @@ export class MaptchaSwipe extends LitElement {
                 @pointerup=${this._onPointerUp}
                 style=${this._getTransformStyle()}
               >
-                <img src=${this.items[this._currentIndex]} />
+                <img src=${this.items[this._currentIndex].url} />
               </div>
 
             `
@@ -153,22 +146,37 @@ export class MaptchaSwipe extends LitElement {
     }
 
     if (deltaX > threshold) {
-      this._swipe('right');
+      this._recordResponse(true).then(()=>{
+        this._swipe('right');
+      });
     } else if (deltaX < -threshold) {
-      this._swipe('left');
+      this._recordResponse(false).then(()=>{
+        this._swipe('left');
+      });
     } else {
       this._resetPosition();
     }
   }
 
+
+  private async _recordResponse(response:bool){
+    let userId = getUserId()
+    let imageId = this.items[this._currentIndex].image_id 
+    await createSubmission(userId, imageId,response )
+  }
+
   private _clickAgree(){
-    this._currentIndex++;
-    this.requestUpdate();
+    this._recordResponse(true).then(()=>{
+      this._currentIndex++;
+      this.requestUpdate();
+    })
   }
 
   private _clickDisagree(){
-    this._currentIndex++;
-    this.requestUpdate();
+    this._recordResponse(false).then(()=>{
+      this._currentIndex++;
+      this.requestUpdate();
+    })
   }
 
   private _swipe(direction: 'left' | 'right') {

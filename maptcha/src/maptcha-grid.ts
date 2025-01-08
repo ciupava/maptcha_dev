@@ -1,21 +1,15 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
+import {Image,createSubmission,getUserId} from "./utils"
 
 @customElement('maptcha-grid')
 class MaptchaGrid extends LitElement {
+
   @property({ type: Array })
-  images: string[] = [
-    // Placeholder URLs; replace with actual URLs.
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150',
-    'https://via.placeholder.com/150'
-  ];
+  images: Image[] = []
+
+  @property({type:Boolean})
+  loading: Boolean = false
 
   @property({ type: Array })
   selectedIndexes: number[] = [];
@@ -76,17 +70,44 @@ class MaptchaGrid extends LitElement {
     }
   }
 
+  private async _recordSubmission(){
+    let userId = getUserId()
+    for ( let i=0; i <9; i++){
+      await createSubmission(userId,this.images[i].image_id, this.selectedIndexes.includes(i))        
+    }
+  }
+
+
+  updated(changedProperties) {
+    if(changedProperties.images){
+      this.loading=false
+    }
+  }
+  
   private submitCaptcha(): void {
     const event = new CustomEvent('captcha-submit', {
       detail: { selectedIndexes: this.selectedIndexes },
       bubbles: true,
       composed: true
     });
-    this.selectedIndexes=[]
-    this.dispatchEvent(event);
+
+    this.loading = true
+
+    this._recordSubmission().then(()=>{
+      this.selectedIndexes=[]
+      this.dispatchEvent(event);
+    })
   }
 
   render() {
+    if(this.loading){
+      return html`
+        <div class="container">
+          <maptcha-header></maptcha-header>
+          <h1>Loading</h1>
+        </div>
+      `
+    }
     return html`
       <div class="container">
         <maptcha-header></maptcha-header>
@@ -94,7 +115,7 @@ class MaptchaGrid extends LitElement {
           ${this.images.map(
             (image, index) => html`
               <img
-                src="${image}"
+                src="${image.url}"
                 class="${this.selectedIndexes.includes(index) ? 'selected' : ''}"
                 @click="${() => this.toggleSelection(index)}"
                 alt="Captcha option"

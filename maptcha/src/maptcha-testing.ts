@@ -1,7 +1,8 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property, state } from 'lit/decorators.js'
-import {getImages} from "./utils"
+import {getImages, randomImageGrid, Image} from "./utils"
 import shuffle from "lodash.shuffle"
+
 
 @customElement('maptcha-testing')
 class MaptchaTesting extends LitElement {
@@ -33,24 +34,20 @@ class MaptchaTesting extends LitElement {
   `
 
   @state()
-  images: Array<String> = []
+  images: Array<Image> = []
   
   @state()
   selectedTab: String = "grid";
 
-  _randomImages(){
-    let TP = getImages("TP",3);
-    let FP = getImages("FP",3);
-    let TN = getImages("TN",3);
-
-    return shuffle([...TP, ...FP,...TN]);
+  async _randomImages(){
+    let data = await randomImageGrid()
+    return data
   }
 
-  connectedCallback() {
+  async connectedCallback() {
     super.connectedCallback()
-    console.log('connected')
-    this.images= this._randomImages();
-    console.log(images)
+    this.images= await this._randomImages();
+    console.log(this.images)
   }
 
   selectGrid(){
@@ -62,7 +59,9 @@ class MaptchaTesting extends LitElement {
   }
 
   _submitted(){
-    this.images = this._randomImages();
+    this._randomImages().then((images)=>{
+      this.images = images
+    });
   }
   
   render(){
