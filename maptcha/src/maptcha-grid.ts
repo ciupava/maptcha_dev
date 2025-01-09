@@ -86,7 +86,7 @@ class MaptchaGrid extends LitElement {
   
   private submitCaptcha(): void {
     const event = new CustomEvent('captcha-submit', {
-      detail: { selectedIndexes: this.selectedIndexes },
+      detail: { count: 9 },
       bubbles: true,
       composed: true
     });

@@ -11,6 +11,8 @@ class MaptchaTesting extends LitElement {
     .testing{
       display:flex;
       flex-direction:column;
+      height:100vh;
+      max-height:600px;
     }
 
     .tabs{
@@ -31,8 +33,18 @@ class MaptchaTesting extends LitElement {
       color:white;
 
     }
+    .content{
+      width:100%;
+      height:100%;
+    }
   `
 
+  @state()
+  imagesSeen: number = 0 
+
+  @state()
+  surveySeen: boolean = false
+   
   @state()
   images: Array<Image> = []
   
@@ -47,6 +59,9 @@ class MaptchaTesting extends LitElement {
   async connectedCallback() {
     super.connectedCallback()
     this.images= await this._randomImages();
+    this.imagesSeen = JSON.parse(localStorage.getItem("images_seen")) || 0;
+    this.surveySeen= JSON.parse(localStorage.getItem("surveySeen")) || false;
+    
     console.log(this.images)
   }
 
@@ -58,13 +73,30 @@ class MaptchaTesting extends LitElement {
     this.selectedTab = "swipe"
   }
 
-  _submitted(){
+  _updateImagesSeen(no:number){
+    console.log("updating images seen ", this.imagesSeen, no)
+    this.imagesSeen += no;
+    localStorage.setItem("images_seen", JSON.stringify(this.imagesSeen));
+  }
+
+  _submitted(e){
+    console.log("submission event",e)
+    this._updateImagesSeen(e.detail.count)
     this._randomImages().then((images)=>{
       this.images = images
     });
   }
   
   render(){
+    if (this.imagesSeen === 36 && !this.surveySeen){
+      return html`
+        <div class='testing'>
+          <div class='content'>
+            <maptcha-survey> </maptcha-survey>
+          </div>
+        </div>
+      `
+    }
     return html`
      <div class="testing">
       <div class='tabs'>
@@ -80,7 +112,7 @@ class MaptchaTesting extends LitElement {
           `
           :
           html`
-            <maptcha-swipe .items="${this.images}">
+            <maptcha-swipe .items="${this.images}" @captcha-submit=${this._submitted}>
             </maptcha-swipe>
           `
         }
