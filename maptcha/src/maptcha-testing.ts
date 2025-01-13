@@ -8,6 +8,10 @@ import shuffle from "lodash.shuffle"
 class MaptchaTesting extends LitElement {
 
   static styles= css`
+    :host{
+      backgound-color:white;
+      color:darkgrey;
+    }
     .testing{
       display:flex;
       flex-direction:column;
@@ -39,9 +43,13 @@ class MaptchaTesting extends LitElement {
     .content{
       width:100%;
       height:100%;
+      background-color:white;
     }
   `
 
+  @state()
+  showLanding: boolean = true 
+   
   @state()
   imagesSeen: number = 0 
 
@@ -52,7 +60,7 @@ class MaptchaTesting extends LitElement {
   images: Array<Image> = []
   
   @state()
-  selectedTab: String = "grid";
+  interfaceType: String = "grid";
 
   async _randomImages(){
     let data = await randomImageGrid()
@@ -64,6 +72,13 @@ class MaptchaTesting extends LitElement {
     this.images= await this._randomImages();
     this.imagesSeen = JSON.parse(localStorage.getItem("images_seen")) || 0;
     this.surveySeen= JSON.parse(localStorage.getItem("surveySeen")) || false;
+    let interface_type = localStorage.getItem("interface_type");
+    
+    if (!interface_type){
+      interface_type = Math.random() < 0.5 ? "swipe" : "grid"
+      localStorage.setItem("interface_type", interface_type)
+    }
+    this.interfaceType = interface_type
     
     console.log(this.images)
   }
@@ -89,8 +104,22 @@ class MaptchaTesting extends LitElement {
       this.images = images
     });
   }
+
+  _start(e){
+    this.showLanding = false
+  }
   
   render(){
+    if (this.showLanding){
+      
+    return html`
+        <div class='testing'>
+          <div class='content'>
+            <maptcha-landing-page @start-captcha="${this._start}"></maptcha-landing-page>
+          </div>
+        </div>
+    `
+    }
     if (this.imagesSeen === 36 && !this.surveySeen){
       return html`
         <div class='testing'>
@@ -102,13 +131,8 @@ class MaptchaTesting extends LitElement {
     }
     return html`
      <div class="testing">
-      <div class='tabs'>
-         <button class=${this.selectedTab === "grid" ? "selected" : ""} @click="${this.selectGrid}">Grid</button>
-         <button class=${this.selectedTab === "swipe" ? "selected" : ""} @click="${this.selectSwipe}">Swipe</button>
-      </div>
-
       <div class='content'>
-        ${this.selectedTab === "grid" ? 
+        ${this.interfaceType=== "grid" ? 
           html`
             <maptcha-grid .images="${this.images}" @captcha-submit=${this._submitted}>
             </maptcha-grid>
