@@ -11,15 +11,16 @@ class MaptchaTesting extends LitElement {
     :host{
       backgound-color:white;
       color:darkgrey;
-    }
-    .testing{
       display:flex;
       flex-direction:column;
-      height:100vh;
-      width:100vw;
 
-      max-height:1000px;
+      height:100%;
+      width:100%;
+
+      max-height:800px;
       max-width:430px;
+      align-items:center;
+      justify-content: center;
     }
 
     .tabs{
@@ -41,9 +42,9 @@ class MaptchaTesting extends LitElement {
 
     }
     .content{
-      width:100%;
-      height:100%;
+      flex:1;
       background-color:white;
+      height:100%;
     }
   `
 
@@ -118,24 +119,19 @@ class MaptchaTesting extends LitElement {
     if (this.showLanding){
       
     return html`
-        <div class='testing'>
           <div class='content'>
             <maptcha-landing-page @start-captcha="${this._start}"></maptcha-landing-page>
           </div>
-        </div>
     `
     }
     if (this.imagesSeen === 36 && !this.surveySeen){
       return html`
-        <div class='testing'>
           <div class='content'>
             <maptcha-survey @survey-submit="${this._surveySubmitted}"> </maptcha-survey>
           </div>
-        </div>
       `
     }
     return html`
-     <div class="testing">
       <div class='content'>
         ${this.interfaceType=== "grid" ? 
           html`
@@ -150,7 +146,6 @@ class MaptchaTesting extends LitElement {
         }
 
       </div>
-     </div> 
     `
   }
 }

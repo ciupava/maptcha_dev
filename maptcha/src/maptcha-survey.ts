@@ -33,6 +33,7 @@ class MaptchaSurveyComponent extends LitElement {
       cursor: pointer;
       font-size: 1rem;
       border-radius: 4px;
+      width:100%;
     }
     button:hover {
       background-color: #0056b3;

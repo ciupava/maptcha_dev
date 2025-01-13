@@ -17,7 +17,6 @@ class MaptchaGrid extends LitElement {
   static styles = css`
     :host {
       display: block;
-      margin: 0 auto;
       font-family: Arial, sans-serif;
       color:darkgrey;
       width:100%;
@@ -58,6 +57,7 @@ class MaptchaGrid extends LitElement {
     .container{
       background-color:white;
       padding:20px;
+      box-sizing:border-box;
       border-radius:4px;
       display:flex;
       flex-direction:column;
