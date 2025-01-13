@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import {Image,createSubmission,getUserId} from "./utils"
+import {Image,createSubmission,getUserId, preloadImage} from "./utils"
 
 @customElement('maptcha-grid')
 class MaptchaGrid extends LitElement {
@@ -124,7 +124,11 @@ class MaptchaGrid extends LitElement {
     if(changedProperties.has("images")){
       let images = changedProperties.get("images");
       if(images){
-        this.loading=false
+        Promise.all(images.map((image)=>
+          preloadImage(image.url)
+        )).then(()=>{
+          this.loading=false
+        });
       }
     }
   }

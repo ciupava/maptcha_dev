@@ -16,6 +16,14 @@ enum ImageClass{
   FN ="FN"
 }
 
+export function preloadImage(src:string){
+  return new Promise((resolve, reject) => {
+    const image = new Image()
+    image.onload = resolve
+    image.onerror = reject
+    image.src = src
+  })
+}
 
 export function getUserId(){
   let id = localStorage.getItem("user_id")
