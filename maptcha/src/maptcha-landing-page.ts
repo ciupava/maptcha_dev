@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import logo from '../public/maptcha_logo.webp'
+import logo from '/maptcha_logo.webp'
 
 @customElement('maptcha-landing-page')
 class MaptchaLandingPage extends LitElement {
@@ -45,7 +45,7 @@ class MaptchaLandingPage extends LitElement {
      <div class='landing-page'>
        <header>
 
-        <img width=100 height=100  class='logo' src=${logo} />
+       <img width=100 height=100  class='logo' src=${logo} />
         <div class='text'>
          <h2>Welcome to MaptCHA</h2>
          <h3>The opensource CAPTCHA that improves OpenStreetMap</h3>

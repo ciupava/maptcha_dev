@@ -1,6 +1,6 @@
 import { LitElement, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
-import logo from '../public/maptcha_logo.webp'
+import logo from '/maptcha_logo.webp'
 
 
 @customElement('maptcha-header')
