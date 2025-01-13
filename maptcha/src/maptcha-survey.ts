@@ -53,6 +53,10 @@ class MaptchaSurveyComponent extends LitElement {
     textarea{
       width:100%;
     }
+    .answers{
+      display:flex;
+      flex-direction:column;
+    }
   `;
 
   static properties = {
@@ -130,14 +134,16 @@ class MaptchaSurveyComponent extends LitElement {
           ${this.questions.map((q, i) => html`
             <div class="question">
               <label class="questionLabel">${q}</label>
-              ${['Strongly agree', 'Agree', 'Neutral', 'Disagree', 'Strongly disagree'].map(option => html`
-                <label>
-                  <input type="radio" name="question${i + 1}" value="${option}" 
-                    @change="${this.handleInputChange.bind(this)}" 
-                    ?checked="${this.responses[`question${i + 1}`] === option}" />
-                  ${option}
-                </label>
-              `)}
+              <div class="answers">
+                ${['Strongly agree', 'Agree', 'Neutral', 'Disagree', 'Strongly disagree'].map(option => html`
+                  <label>
+                    <input type="radio" name="question${i + 1}" value="${option}" 
+                      @change="${this.handleInputChange.bind(this)}" 
+                      ?checked="${this.responses[`question${i + 1}`] === option}" />
+                    ${option}
+                  </label>
+                `)}
+              </div>
             </div>
           `)}
 
@@ -150,11 +156,9 @@ class MaptchaSurveyComponent extends LitElement {
             <label>Anything you would like to suggest, feedback or comment…</label>
             <textarea rows=4 name="question7" .value="${this.responses.question7}" @input="${this.handleInputChange.bind(this)}"></textarea>
           </div>
-        </div>
-
-        <div class="actions">
           <button @click="${this.handleSubmit}">Submit</button>
         </div>
+
       </div>
     `;
   }

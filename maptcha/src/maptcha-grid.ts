@@ -17,15 +17,17 @@ class MaptchaGrid extends LitElement {
   static styles = css`
     :host {
       display: block;
-      max-width: 400px;
       margin: 0 auto;
       font-family: Arial, sans-serif;
       color:darkgrey;
+      width:100%;
+      height:100%;
     }
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 5px;
+      flex:1;
     }
     .grid img {
       width: 100%;
@@ -59,6 +61,46 @@ class MaptchaGrid extends LitElement {
       border-radius:4px;
       display:flex;
       flex-direction:column;
+      height:100%;
+    }
+    .loading-area{
+      flex:1;
+       display:flex;
+       flex-direction:column;
+       justify-content: center;
+       align-items:center; 
+    }
+    .loader {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            position: relative;
+            animation: rotate 1s linear infinite
+          }
+          .loader::before , .loader::after {
+            content: "";
+            box-sizing: border-box;
+            position: absolute;
+            inset: 0px;
+            border-radius: 50%;
+            border: 5px solid #FFF;
+            animation: prixClipFix 2s linear infinite ;
+          }
+          .loader::after{
+            transform: rotate3d(90, 90, 0, 180deg );
+            border-color: #1a5310;
+          }
+
+          @keyframes rotate {
+            0%   {transform: rotate(0deg)}
+            100%   {transform: rotate(360deg)}
+          }
+
+          @keyframes prixClipFix {
+              0%   {clip-path:polygon(50% 50%,0 0,0 0,0 0,0 0,0 0)}
+              50%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 0,100% 0,100% 0)}
+              75%, 100%  {clip-path:polygon(50% 50%,0 0,100% 0,100% 100%,100% 100%,100% 100%)}
+          }
     }
   `;
 
@@ -79,8 +121,11 @@ class MaptchaGrid extends LitElement {
 
 
   updated(changedProperties) {
-    if(changedProperties.images){
-      this.loading=false
+    if(changedProperties.has("images")){
+      let images = changedProperties.get("images");
+      if(images){
+        this.loading=false
+      }
     }
   }
   
@@ -104,7 +149,9 @@ class MaptchaGrid extends LitElement {
       return html`
         <div class="container">
           <maptcha-header></maptcha-header>
-          <h1>Loading</h1>
+          <div class="loading-area">
+            <span class="loader"></span>
+          </div>
         </div>
       `
     }

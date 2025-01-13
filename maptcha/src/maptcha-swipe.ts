@@ -13,23 +13,25 @@ export class MaptchaSwipe extends LitElement {
       height: 100%;
       overflow: hidden;
       background-color:white;
-      min-height:560px;
-      min-width:320px;
       box-sizing:border-box;
       padding:20px;
       font-family: Arial, sans-serif;
       color:darkgrey;
+      width:100%;      
+      height:100%;
     }
     .container{
       display:flex;
       flex-direction:column;
-      width:100%;
-      height:500px;
-      
+      width:100%;      
+      height:100%;
     }
     .swipe-area{
       flex:1;
-      height: 438px;
+      display:flex;
+      flex-direction:column;
+      justify-content: center;
+      align-items:center;
     }
     .card {
       position: absolute;

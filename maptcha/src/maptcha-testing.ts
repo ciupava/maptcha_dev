@@ -12,7 +12,10 @@ class MaptchaTesting extends LitElement {
       display:flex;
       flex-direction:column;
       height:100vh;
-      max-height:600px;
+      width:100vw;
+
+      max-height:1000px;
+      max-width:430px;
     }
 
     .tabs{
