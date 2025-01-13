@@ -113,9 +113,10 @@ class MaptchaGrid extends LitElement {
   }
 
   private async _recordSubmission(){
+    let ids = this.images.map(i => i.image_id)
     let userId = getUserId()
     for ( let i=0; i <9; i++){
-      await createSubmission(userId,this.images[i].image_id, this.selectedIndexes.includes(i))        
+      await createSubmission(userId,this.images[i].image_id, this.selectedIndexes.includes(i), "grid", ids)        
     }
   }
 

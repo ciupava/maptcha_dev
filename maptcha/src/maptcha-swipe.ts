@@ -164,7 +164,7 @@ export class MaptchaSwipe extends LitElement {
   private async _recordResponse(response:bool){
     let userId = getUserId()
     let imageId = this.items[this._currentIndex].image_id 
-    await createSubmission(userId, imageId,response )
+    await createSubmission(userId, imageId,response , "swipe", [])
   }
 
   private _clickAgree(){
