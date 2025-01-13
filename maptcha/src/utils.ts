@@ -46,3 +46,11 @@ export async function createSubmission(userId:String, imageId:String,userRespons
     console.log("submmiting submission", userId, imageId, userResponse);
     let {data,error} = await supabase.rpc("create_submission",{input_user_id:userId, input_image_id:imageId, input_user_response: userResponse, interface_type: interfaceType, other_images: otherImages });
 }
+
+export async function submitSurvey(userId:String, responses: Object){
+  console.log("submitting survey", userId, responses )
+  let {data, error} = await supabase.rpc("submit_survey", {
+    input_repsonses: responses, 
+    input_user_id: userId
+    })
+}

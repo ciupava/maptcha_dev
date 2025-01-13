@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import {getUserId, submitSurvey} from "./utils"
 
 class MaptchaSurveyComponent extends LitElement {
   static styles = css`
@@ -90,34 +91,13 @@ class MaptchaSurveyComponent extends LitElement {
   }
 
   async handleSubmit() {
-    console.log('Submitting responses:', this.responses);
-    try {
-      const response = await fetch('https://your-api-endpoint.com/save-survey', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(this.responses),
-      });
-
-      if (response.ok) {
-        alert('Thank you for your feedback!');
-        this.responses = {
-          question1: '',
-          question2: '',
-          question3: '',
-          question4: '',
-          question5: '',
-          question6: '',
-          question7: '',
-        };
-      } else {
-        alert('Something went wrong. Please try again later.');
-      }
-    } catch (error) {
-      console.error('Error submitting survey:', error);
-      alert('An error occurred. Please try again later.');
-    }
+    let userId = getUserId()
+    await submitSurvey(userId,this.responses)
+    const event = new CustomEvent('survey-submit', {
+      bubbles: true,
+      composed: true
+    });
+    this.dispatchEvent(event)
   }
 
   render() {

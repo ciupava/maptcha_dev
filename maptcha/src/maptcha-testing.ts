@@ -108,6 +108,11 @@ class MaptchaTesting extends LitElement {
   _start(e){
     this.showLanding = false
   }
+
+  _surveySubmitted(){
+    this.surveySeen=true
+    localStorage.setItem("surveySeen", true)
+  }
   
   render(){
     if (this.showLanding){
@@ -124,7 +129,7 @@ class MaptchaTesting extends LitElement {
       return html`
         <div class='testing'>
           <div class='content'>
-            <maptcha-survey> </maptcha-survey>
+            <maptcha-survey @survey-submit="${this._surveySubmitted}"> </maptcha-survey>
           </div>
         </div>
       `
