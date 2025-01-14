@@ -54,15 +54,15 @@ class MaptchaLandingPage extends LitElement {
        </header>
        <div class='info'>
          <p>Bots and spam are challenges for online platforms. Traditional CAPTCHAs help block bots, but often involve improving proprietary maps and software, 
-         while exposing user information to third-party CAPTCHA providers.
+         while exposing user information to third-party CAPTCHA providers.</p>
 
-         OpenStreetMap (OSM) has many objects remaining to be mapped, but the quality of AI-generated objects is not high enough for direct inclusion.</p>
+         <p>OpenStreetMap (OSM) has many objects remaining to be mapped, but the quality of AI-generated objects is not high enough for direct inclusion.</p>
      
 
-        <p>We introduce here “MapTCHA”, a CAPTCHA that leverages the uncertainty of interpreting imagery with computer vision, and provides human verification for AI predictions: you are asked to identify images containing correctly interpreted objects, e.g. building outlines.</p>
-        <p>MapTCHA is still a work in progress. We are testing it now on potential users.
-        In the following interface you will be shown what looks like a typical CAPTCHA interface, both in grid and swipe format.
-        Please try a few identification tasks (you'll be shown 9 images per session) until you get to the final questionnaire, which we ask you to fill up also to get some feedback on the tool (it shouldn't take you long!)</p>
+        <p>We introduce here “MapTCHA”, a CAPTCHA that leverages the uncertainty of interpreting imagery with computer vision, and provides human verification for AI predictions:
+        you are asked to identify images containing correctly interpreted objects, e.g. building outlines.</p>
+        <p>MapTCHA is still a work in progress. We are testing it now on potential users. In the following interface you will be shown what looks like a typical CAPTCHA interface, both in grid and swipe format.</p>
+        <p>Please try a few identification tasks (you'll be shown 9 images per session) until you get to a short questionnaire, for us to get some feedback on the tool.</p>
 
         <p>We'll be presenting this project at <a href="">FOSDEM</a> soon, come along!</p>
 
