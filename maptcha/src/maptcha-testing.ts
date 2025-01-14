@@ -45,6 +45,7 @@ class MaptchaTesting extends LitElement {
       flex:1;
       background-color:white;
       height:100%;
+      width:100%;
     }
   `
 
@@ -124,7 +125,7 @@ class MaptchaTesting extends LitElement {
           </div>
     `
     }
-    if (this.imagesSeen === 36 && !this.surveySeen){
+    if (this.imagesSeen >= 36 && !this.surveySeen){
       return html`
           <div class='content'>
             <maptcha-survey @survey-submit="${this._surveySubmitted}"> </maptcha-survey>
@@ -140,7 +141,7 @@ class MaptchaTesting extends LitElement {
           `
           :
           html`
-            <maptcha-swipe .items="${this.images}" @captcha-submit=${this._submitted}>
+            <maptcha-swipe .images="${this.images}" @captcha-submit=${this._submitted}>
             </maptcha-swipe>
           `
         }

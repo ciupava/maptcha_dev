@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit'
-import { customElement, property } from 'lit/decorators.js'
+import { customElement, property, state } from 'lit/decorators.js'
 import {Image, getUserId, createSubmission} from "./utils"
 
 
@@ -82,7 +82,14 @@ export class MaptchaSwipe extends LitElement {
   `;
 
   @property({ type: Array })
-  items: Image[] = [];
+  images: Image[] = [];
+
+  @state()
+  imageQueue: Image[] = [];
+
+  @state()
+  currentImage: Image = null;
+  
 
   private _currentIndex = 0;
   private _startX = 0;
@@ -90,14 +97,40 @@ export class MaptchaSwipe extends LitElement {
   private _isDragging = false;
 
 
+  private populateQueue(images: Array<Image>){
+    images.forEach((image)=>{
+      if(!this.imageQueue.includes(image)){
+        this.imageQueue.push(image)
+      }
+    })
+    if(!this.currentImage){
+      this.currentImage = this.imageQueue.pop()
+    }
+    this.requestUpdate()
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+    this.populateQueue(this.images)
+  }
+
+  updated(changedProperties) {
+    if(changedProperties.has("images")){
+      let images = changedProperties.get("images");
+      if(images){
+        this.populateQueue(images)
+      }
+    }
+  }
+
 
   render() {
     return html`
       <div class="container">
       <maptcha-header></maptcha-header>
-      <div class="swipe-area">
-        ${this.items.length > this._currentIndex
-          ? html`
+      ${this.currentImage  ? 
+        html`
+        <div class="swipe-area">
               <div
                 class="card"
                 @pointerdown=${this._onPointerDown}
@@ -105,17 +138,21 @@ export class MaptchaSwipe extends LitElement {
                 @pointerup=${this._onPointerUp}
                 style=${this._getTransformStyle()}
               >
-                <img src=${this.items[this._currentIndex].url} />
+                <img src=${this.currentImage.url} />
               </div>
+          </div>
+          <p>Swipe right if the red shape is correctly outlining a building. If not swipe left</p>
+          <div class='buttons'>
+            <button @click=${this._clickAgree} class="disagree">Incorrect</button>
+            <button @click=${this._clickDisagree} class="agree">Correct</button>
+          </div>
+        `
 
-            `
-          : html`<p>No more items!</p>`}
-        </div>
-        <p>Swipe right if the red outline covers the building</p>
-        <div class='buttons'>
-          <button @click=${this._clickAgree} class="disagree">Disagree</button>
-          <button @click=${this._clickDisagree} class="agree">Agree</button>
-        </div>
+        : 
+        html`
+          <h1>Loading</h1>
+        `
+      }
       </div>
     `;
   }
@@ -163,22 +200,31 @@ export class MaptchaSwipe extends LitElement {
 
   private async _recordResponse(response:bool){
     let userId = getUserId()
-    let imageId = this.items[this._currentIndex].image_id 
+    let imageId = this.currentImage.image_id 
+
     await createSubmission(userId, imageId,response , "swipe", [])
+    if(this.imageQueue.length < 3){
+      const event = new CustomEvent('captcha-submit', {
+        detail:{count: 7},
+        bubbles: true,
+        composed: true
+      });
+      this.dispatchEvent(event);
+    }
+
+    this.currentImage = this.imageQueue.pop();
+
+    setTimeout(()=>{
+      this.requestUpdate();      
+    },300)
   }
 
   private _clickAgree(){
-    this._recordResponse(true).then(()=>{
-      this._currentIndex++;
-      this.requestUpdate();
-    })
+    this._recordResponse(true)
   }
 
   private _clickDisagree(){
-    this._recordResponse(false).then(()=>{
-      this._currentIndex++;
-      this.requestUpdate();
-    })
+    this._recordResponse(false)
   }
 
   private _swipe(direction: 'left' | 'right') {
@@ -186,10 +232,9 @@ export class MaptchaSwipe extends LitElement {
     if (card) {
       card.style.transform = `translateX(${direction === 'right' ? '100%' : '-100%'})`;
     }
-    setTimeout(() => {
-      this._currentIndex++;
-      this.requestUpdate();
-    }, 300);
+    setTimeout(()=>{
+      card.style.transform = `translateX(0px)`;
+    },300)
   }
 
   private _resetPosition() {

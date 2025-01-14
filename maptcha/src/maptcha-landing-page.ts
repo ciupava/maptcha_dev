@@ -47,7 +47,7 @@ class MaptchaLandingPage extends LitElement {
 
        <img width=100 height=100  class='logo' src=${logo} />
         <div class='text'>
-         <h2>Welcome to MaptCHA</h2>
+         <h2>Welcome to MapTCHA</h2>
          <h3>The opensource CAPTCHA that improves OpenStreetMap</h3>
          </div>
        </header>

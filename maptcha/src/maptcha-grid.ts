@@ -175,7 +175,7 @@ class MaptchaGrid extends LitElement {
             `
           )}
         </div>
-        <p>Click all of the images where the red outline covers the buildings</p>
+        <p>Click on the images where the red shape is correctly outlining a building</p>
         <button class="submit-btn" @click="${this.submitCaptcha}">Submit</button>
       </div>
     `;
