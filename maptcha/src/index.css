@@ -27,7 +27,7 @@ body {
   display: flex;
   place-items: center;
   width:100vw;
-  height:100vh;
+  height:80vh;
   min-width: 320px;
   min-height: 100vh;
   align-items: center;

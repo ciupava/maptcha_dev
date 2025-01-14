@@ -28,6 +28,7 @@ class MaptchaLandingPage extends LitElement {
      box-sizing: border-box;
      padding:20px 10px;
      background-color: #1a5310
+     color:white;
    }
  `
 
