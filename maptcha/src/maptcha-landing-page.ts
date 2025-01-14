@@ -64,7 +64,7 @@ class MaptchaLandingPage extends LitElement {
         <p>MapTCHA is still a work in progress. We are testing it now on potential users. In the following interface you will be shown what looks like a typical CAPTCHA interface, both in grid and swipe format.</p>
         <p>Please try a few identification tasks (you'll be shown 9 images per session) until you get to a short questionnaire, for us to get some feedback on the tool.</p>
 
-        <p>We'll be presenting this project at <a href="">FOSDEM</a> soon, come along!</p>
+        <p>We'll be presenting this project at <a href="https://fosdem.org/2025/schedule/event/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap/">FOSDEM</a> on 1 February 2025, come along!</p>
 
 
         <p>MapTCHA is a project by Anna, Guillaume, Stuart</p>
