@@ -1,9 +1,52 @@
 # :tea: Maptcha-dev
 
-Initial notes available in the [HackMD doc](https://hackmd.io/@annazan/SJgbLKK6C)
+👷 !!! MapTCHA is still a work-in-progress. 🧰
+
+🗒️ Meetings minutes and notes available in the [HackMD doc](https://hackmd.io/@annazan/SJgbLKK6C).
+
+💻 Follow issues and start collaborating at [project page](https://github.com/users/ciupava/projects/2).
+
+</br>
+🤸 If you think you might have the skills to help developing Maptcha, and you are happy to join the team, we are always looking for enthusiastic collaborators! 🗺️ 🚀
+
 
 ---
-**Notes on the `data` folder** 
+
+We have presented the proof of concept for MapTCHA at **[FOSDEM 2025](https://fosdem.org/2025/schedule/event/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap/)**
+
+Here you can find the [video recording](https://mirror.cyberbits.eu/fosdem/2025/aw1120/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap.av1.webm) and the [slides](https://github.com/ciupava/maptcha_dev/blob/main/slides/Fosdem25_slides.pdf) for that presentation.
+
+
+---
+**Intro**
+
+Bots and spam are challenges for online platforms. Traditional CAPTCHAs help block bots, but often involve improving proprietary maps and software, while exposing user information to third-party CAPTCHA providers.
+
+_OpenStreetMap (OSM)_ has many objects remaining to be mapped, but the quality of AI-generated objects is not high enough for direct inclusion.
+
+We introduce **MapTCHA**, a CAPTCHA that leverages the uncertainty of interpreting imagery with computer vision, and provides human verification for AI predictions: you are asked to identify images containing correctly interpreted objects, e.g. building outlines.
+
+Here the link to the demo we have used to test the prototype before FOSDEM https://maptcha.crown-shy.com/
+
+You'll be presented with either a "classic CAPTCHA" grid version or a "swipe" version. Go through it and give a feedback!
+
+
+</br></br>
+_Grid example_
+
+<img width="346" alt="Grid" src="https://github.com/user-attachments/assets/c289fe77-bc75-4da9-ad84-dc742c9048c6" />
+
+_Swipe example_
+
+<img width="346" alt="swipe" src="https://github.com/user-attachments/assets/0fb5bd7a-a325-4086-b0c5-586e0485e226" />
+
+
+
+</br></br>
+---
+
+
+**Notes on the `data` folder**  (October 2024)
 
 This folder contains all the data ready for the mockup, separated by folder the 4 truth categories (TP, TN, FP, FN).
 
