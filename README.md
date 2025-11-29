@@ -12,9 +12,10 @@
 
 ---
 
-We have presented the proof of concept for MapTCHA at **[FOSDEM 2025](https://fosdem.org/2025/schedule/event/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap/)**
+We have presented the proof of concept for MapTCHA at **[FOSDEM 2025](https://fosdem.org/2025/schedule/event/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap/)**.</br>Here you can find the [video recording](https://mirror.cyberbits.eu/fosdem/2025/aw1120/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap.av1.webm) and the [slides](https://github.com/ciupava/maptcha_dev/blob/main/slides/Fosdem25_slides.pdf) for that presentation.
 
-Here you can find the [video recording](https://mirror.cyberbits.eu/fosdem/2025/aw1120/fosdem-2025-5879-maptcha-the-open-source-captcha-that-improves-openstreetmap.av1.webm) and the [slides](https://github.com/ciupava/maptcha_dev/blob/main/slides/Fosdem25_slides.pdf) for that presentation.
+We have further presented at State of The Map Europe 2025 **[SOTM 25](https://pretalx.com/sotmeu2025/talk/review/L9JS3X83LWDSLGQ8XUDJVUHTTDV3FKY8)**.</br>
+Here the [slides](https://github.com/ciupava/talks/blob/main/SoTMEU25_Maptcha.pdf).
 
 
 ---
